@@ -71,8 +71,8 @@ def do_clean(number=0):
 
     if len(ids) == 0:
         return
-    if number == 0 or number >= len(ids):
+    if int(number) == 0 or int(number) >= len(ids):
         number == 1
-    for _id in ids[number:]:
+    for _id in ids[int(number):]:
         local("rm ./versions/web_static_{}.tgz".format(_id))
         run("sudo rm -rf /data/web_static/releases/web_static_{}".format(_id))
