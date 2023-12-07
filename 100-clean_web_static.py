@@ -5,7 +5,7 @@
 from fabric.api import env, put, run, local
 from datetime import date
 from time import strftime
-from os import path
+import os
 
 env.hosts = ["34.232.71.74", "100.25.34.189"]
 
@@ -25,7 +25,7 @@ def do_pack():
 
 def do_deploy(archive_path):
     """ deploy the archive to the servers """
-    if not path.exists(archive_path):
+    if not os.path.exists(archive_path):
         return False
 
     filename = archive_path.split('/')[-1]
@@ -59,3 +59,20 @@ def deploy():
     if archive is None:
         return False
     return do_deploy(archive)
+
+def do_clean(number=0):
+    """ cleans outdated archives """
+    ids=[]
+    archives = os.listdir("./versions")
+    for file in archives:
+        ids.append(file.split("_")[-1].split(".")[0])
+
+    ids.sort(reverse=True)
+
+    if len(ids) == 0:
+        return
+    if number == 0 or number >= len(ids):
+        number == 1
+    for _id in ids[number:]:
+        local("rm ./versions/web_static_{}.tgz".format(_id))
+        run("sudo rm -rf /data/web_static/releases/web_static_{}".format(_id))
