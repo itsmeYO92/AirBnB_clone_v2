@@ -25,24 +25,28 @@ def do_pack():
 
 def do_deploy(archive_path):
     """ deploy the archive to the servers """
-    try:   
-        if not path.exists(archive_path):
-            return False
-    
-        filename = archive_path.split('/')[-1]
-        ne_filename = filename.split('.')[0]
-    
-        put(archive_path, "/tmp/{}".format(filename))
-    
-        folder = "/data/web_static/releases/{}/".format(ne_filename)
-        run("sudo mkdir -p {}".format(folder))
-        run ("sudo tar -xzf /tmp/{} -C {}".format(filename, folder))
-        run("sudo rm /tmp/{}".format(filename))
-        run("sudo mv {}web_static/* {}".format(folder, folder))
-        run("sudo rm -rf {}web_static".format(folder))
-        run('sudo rm -rf /data/web_static/current')
-        run('sudo ln -s {} /data/web_static/current'.format(folder))
-    except:
+    if not path.exists(archive_path):
+        return False
+
+    filename = archive_path.split('/')[-1]
+    ne_filename = filename.split('.')[0]
+
+    put(archive_path, "/tmp/{}".format(filename))
+
+    folder = "/data/web_static/releases/{}/".format(ne_filename)
+    if run("sudo mkdir -p {}".format(folder)).failed:
+        return False
+    if run ("sudo tar -xzf /tmp/{} -C {}".format(filename, folder)).failed:
+        return False
+    if run("sudo rm /tmp/{}".format(filename)).failed:
+        return False
+    if run("sudo mv {}web_static/* {}".format(folder, folder)).failed:
+        return False
+    if run("sudo rm -rf {}web_static".format(folder)).failed:
+        return False
+    if run('sudo rm -rf /data/web_static/current').failed:
+        return False
+    if run('sudo ln -s {} /data/web_static/current'.format(folder)).failed:
         return False
 
     return True
