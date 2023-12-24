@@ -29,7 +29,7 @@ def variable_route(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_is_cool(text):
     ''' return the C plus a custom text entred by the user '''
-    return ("python {}".format(text.replace('_', ' ')))
+    return ("Python {}".format(text.replace('_', ' ')))
 
 
 if __name__ == "__main__":
