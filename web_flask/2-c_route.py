@@ -12,10 +12,12 @@ def hello():
     ''' return hello HBNB! to the user '''
     return ('Hello HBNB!')
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     ''' return HBNB to the user '''
     return ('HBNB')
+
 
 @app.route('/c/<text>', strict_slashes=False)
 def variable_route(text):

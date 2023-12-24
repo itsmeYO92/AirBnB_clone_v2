@@ -12,11 +12,11 @@ def hello():
     ''' return hello HBNB! to the user '''
     return ('Hello HBNB!')
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     ''' return HBNB to the user '''
     return ('HBNB')
-
 
 
 if __name__ == "__main__":
