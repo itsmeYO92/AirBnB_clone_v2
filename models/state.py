@@ -28,3 +28,4 @@ class State(BaseModel, Base):
                 if v.state_id == self.id:
                     cities.append(v)
             return cities
+

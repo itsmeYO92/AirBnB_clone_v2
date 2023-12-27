@@ -62,7 +62,7 @@ class DBStorage:
             self.reload()
 
         self.__session.add(obj)
-        
+
     def save(self):
         """ commits all the changes to db"""
         self.__session.commit()
@@ -71,7 +71,7 @@ class DBStorage:
         """ delete an object from the database """
         if not self.__session:
             self.reload()
-            
+
         if obj:
             self.__session.delete(obj)
 
@@ -81,3 +81,8 @@ class DBStorage:
 
         pre_session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(pre_session)
+
+    def close(self):
+        """ remove session if exists """
+        if self.__session:
+            self.__session.remove()
