@@ -18,7 +18,7 @@ class State(BaseModel, Base):
         name = ""
 
         @property
-        def citites(self):
+        def cities(self):
             """ getter for cities for the state """
             from models import storage
     
