@@ -9,12 +9,6 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hello():
-    ''' return hello HBNB! to the user '''
-    return ('Hello HBNB!')
-
-
 @app.route('/states_list', strict_slashes=False)
 def states_list():
     ''' return HBNB to the user '''
