@@ -21,11 +21,13 @@ class State(BaseModel, Base):
         def cities(self):
             """ getter for cities for the state """
             from models import storage
-    
-    
+
             cities = []
             for v in storage.all("City").values():
                 if v.state_id == self.id:
                     cities.append(v)
             return cities
 
+    def __init__(self, *args, **kwargs):
+        """ initializes state """
+        super().__init__(*args, **kwargs)

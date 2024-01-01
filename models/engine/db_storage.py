@@ -21,7 +21,7 @@ class DBStorage:
     classes = {
         "City": City,
         "State": State,
-        "User" : User,
+        "User": User,
         "Place": Place
     }
 
@@ -31,7 +31,10 @@ class DBStorage:
         __pwd = getenv("HBNB_MYSQL_PWD")
         __host = getenv("HBNB_MYSQL_HOST")
         __database = getenv("HBNB_MYSQL_DB")
-        __mysqlurl = "mysql+mysqldb://{}:{}@{}/{}".format(__user, __pwd, __host, __database)
+        __mysqlurl = "mysql+mysqldb://{}:{}@{}/{}".format(__user,
+                                                          __pwd,
+                                                          __host,
+                                                          __database)
 
         self.__engine = create_engine(__mysqlurl, pool_pre_ping=True)
         if getenv("HBNB_ENV") == "test":
@@ -76,7 +79,7 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """ creates the tables in the database and the current database session """
+        """ creates the tables in the database """
         Base.metadata.create_all(self.__engine)
 
         pre_session = sessionmaker(bind=self.__engine, expire_on_commit=False)
