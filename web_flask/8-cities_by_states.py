@@ -9,17 +9,17 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hello():
-    ''' return hello HBNB! to the user '''
-    return ('Hello HBNB!')
-
-
-@app.route('/states_list', strict_slashes=False)
-def states_list():
+@app.route('/cities_by_states', strict_slashes=False)
+def cities_by_states():
     ''' return HBNB to the user '''
     states = storage.all(State)
-    return render_template("7-states_list.html", states=states)
+    return render_template("8-cities_by_states.html", states=states)
+
+
+@app.teardown_appcontext
+def teardown(self):
+    ''' tear down method to remove current SQLAlchemy Session '''
+    storage.close()
 
 
 if __name__ == "__main__":
