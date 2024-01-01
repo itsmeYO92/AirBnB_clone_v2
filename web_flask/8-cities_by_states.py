@@ -13,8 +13,6 @@ app = Flask(__name__)
 def cities_by_states():
     ''' return HBNB to the user '''
     states = storage.all(State)
-    for state in states.values():
-        print(state)
     return render_template("8-cities_by_states.html", states=states)
 
 
