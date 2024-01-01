@@ -22,7 +22,10 @@ def states_list(id='all'):
         if state is None:
             mode = 'not_found'
 
-    return render_template("9-states.html", states=states, state=state, mode=mode)
+    return render_template("9-states.html",
+                           states=states,
+                           state=state,
+                           mode=mode)
 
 
 @app.teardown_appcontext
